@@ -12,6 +12,8 @@
     <modules>
         <module>ai-agent-dependency</module>
         <module>ai-agent-core</module>
+        <module>ai-agent-client</module>
+        <module>ai-agent-api</module>
     </modules>
 
     <properties>
