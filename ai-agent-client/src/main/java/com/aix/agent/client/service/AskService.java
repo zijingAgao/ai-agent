@@ -1,6 +1,8 @@
 package com.aix.agent.client.service;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,6 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AskService {
-//    private final ChatClient chatClient;
+    private final ChatClient chatClient;
 
 }

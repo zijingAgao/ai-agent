@@ -14,6 +14,7 @@
         <module>ai-agent-core</module>
         <module>ai-agent-client</module>
         <module>ai-agent-api</module>
+        <module>ai-agent-model-starter</module>
     </modules>
 
     <properties>

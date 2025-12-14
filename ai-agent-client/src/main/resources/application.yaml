@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+# SDK 调用配置的base_url：https://dashscope.aliyuncs.com/compatible-mode/v1
+# HTTP 请求地址：POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+
+spring:
+  ai:
+    chat:
+      client:
+        # 关闭自动装配 ChatClient 默认只会装配一个
+        enabled: false
+
+    qwen:
+      api-key: ""
+      endpoint: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      model: "qwen-plus"
