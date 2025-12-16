@@ -8,9 +8,10 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <properties>
-        <spring.boot.version>4.0.0</spring.boot.version>
+        <spring.boot.version>3.5.8</spring.boot.version>
         <spring.cloud.version>2025.1.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2025.1.0.0</spring.cloud.alibaba.version>
+        <spring-ai-alibaba.version>1.1.0.0-RC1</spring-ai-alibaba.version>
     </properties>
 
     <dependencyManagement>
@@ -51,14 +52,19 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.42</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>cn.hutool</groupId>-->
-<!--                <artifactId>hutool-all</artifactId>-->
-<!--                <version>5.8.42</version>-->
-<!--                <type>pom</type>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-agent-framework</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
 
     <repositories>
         <repository>
@@ -68,6 +74,30 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
+        </repository>
+
+        <repository>
+            <id>aliyunmaven</id>
+            <name>阿里云中央仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>aliyunmaven-snapshot</id>
+            <name>阿里云快照仓库</name>
+            <url>https://maven.aliyun.com/repository/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
 
         <repository>
