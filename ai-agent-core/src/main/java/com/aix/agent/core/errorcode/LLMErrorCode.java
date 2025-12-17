@@ -11,6 +11,7 @@ public enum LLMErrorCode implements IErrorCode {
 
     SYSTEM_ERROR("L0001", "LLM系统异常"),
     LLM_NOT_EXIST("L0002", "LLM模型不存在"),
+    LLM_EXECUTOR_NOT_EXIST("L0003", "LLM模型执行器不存在"),
     ;
 
 

@@ -2,11 +2,11 @@ package com.aix.agent.core.factory;
 
 import com.aix.agent.core.config.LLMAutoConfiguration;
 import com.aix.agent.core.config.LLMProperties;
-import com.aix.agent.core.dto.LLMRequest;
-import com.aix.agent.core.dto.LLMResponse;
+import com.aix.agent.core.errorcode.LLMErrorCode;
+import com.aix.agent.core.exception.LLMException;
+import com.aix.agent.core.llm.LLMExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -22,18 +22,30 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Component
 public class LLMApiFactory implements ApplicationContextAware {
-    private static final Map<String, ChatModel> CHAT_MODEL_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, LLMExecutor> CHAT_MODEL_MAP = new ConcurrentHashMap<>();
 
     @Override
     public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
-        CHAT_MODEL_MAP.putAll(applicationContext.getBeansOfType(ChatModel.class));
+        CHAT_MODEL_MAP.putAll(applicationContext.getBeansOfType(LLMExecutor.class));
         log.debug("load chat modes : {}", CHAT_MODEL_MAP.keySet());
     }
 
 
-    public LLMResponse ask(LLMRequest request){
+    /**
+     * 交由大模型执行
+     *
+     * @param request 执行入参
+     * @return
+     */
+    public LLMResponse execute(LLMRequest request) {
         LLMProperties properties = LLMAutoConfiguration.getLLMProperties(request.getModelType(), request.getPlatform(), request.getModel());
+        String executor = properties.getExecutor();
 
-        return null;
+        LLMExecutor llmExecutor = CHAT_MODEL_MAP.get(executor);
+        if (llmExecutor == null) {
+            throw new LLMException(LLMErrorCode.LLM_EXECUTOR_NOT_EXIST);
+        }
+
+        return llmExecutor.execute(request,properties);
     }
 }

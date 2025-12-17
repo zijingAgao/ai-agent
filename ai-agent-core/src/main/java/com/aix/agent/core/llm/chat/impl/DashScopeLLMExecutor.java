@@ -1,10 +1,11 @@
-package com.aix.agent.core.llm.impl;
+package com.aix.agent.core.llm.chat.impl;
 
-import com.aix.agent.core.dto.LLMRequest;
-import com.aix.agent.core.dto.LLMResponse;
-import com.aix.agent.core.llm.LLMApi;
+import com.aix.agent.core.config.LLMProperties;
+import com.aix.agent.core.factory.LLMRequest;
+import com.aix.agent.core.factory.LLMResponse;
+import com.aix.agent.core.llm.chat.LLMChatExecutor;
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,13 +14,11 @@ import org.springframework.stereotype.Component;
  * @Author Agao
  * @Date 2025/12/16 20:49
  */
-@Component
-@RequiredArgsConstructor
-public class DashscopeLLMApi implements LLMApi {
+@Component("dashScopeLLMExecutor")
+public class DashScopeLLMExecutor implements LLMChatExecutor {
 
-    private final DashScopeChatModel dashScopeModel;
     @Override
-    public LLMResponse ask(LLMRequest req) {
+    public LLMResponse execute(LLMRequest req, LLMProperties properties) {
         String model = req.getModel();
         // 获取执行模型
 //        ChatModel chatModel = LLMApiFactory.getChatModel(model);
@@ -36,7 +35,14 @@ public class DashscopeLLMApi implements LLMApi {
 //        llmResponse.setCalledToolCalls();
 //        llmResponse.setCalledToolResponses();
 
+        DashScopeApi dashScopeApi = DashScopeApi.builder()
+                .apiKey(properties.getApiKey())
+                .build();
+
+        DashScopeChatModel chatModel = DashScopeChatModel.builder().dashScopeApi(dashScopeApi).build();
+
 
         return null;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.aix.agent.core.dto;
+package com.aix.agent.core.factory;
 
 import lombok.Data;
 

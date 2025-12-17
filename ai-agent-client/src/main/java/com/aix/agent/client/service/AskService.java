@@ -2,7 +2,6 @@ package com.aix.agent.client.service;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 /**
