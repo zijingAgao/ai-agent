@@ -10,6 +10,8 @@ spring:
       client:
         # 关闭自动装配 ChatClient 默认只会装配一个
         enabled: false
+  webflux:
+#    base-path: http://localhost:8888
 
 aix:
   llm:
