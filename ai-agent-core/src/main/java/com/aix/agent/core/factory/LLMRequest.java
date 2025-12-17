@@ -11,4 +11,5 @@ public class LLMRequest {
     private String platform;
     private String model;
     private String modelType;
+    private String content;
 }

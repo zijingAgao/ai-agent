@@ -1,39 +1,32 @@
 server:
   port: 8888
 
-# SDK 调用配置的base_url：https://dashscope.aliyuncs.com/compatible-mode/v1
-# HTTP 请求地址：POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
 
 spring:
   ai:
-    chat:
-      client:
-        # 关闭自动装配 ChatClient 默认只会装配一个
-        enabled: false
+    # 重试机制
+    retry:
+      # 最大重试次数
+      max-attempts: 1
+
 
 aix:
   llm:
     chat:
       - platform: "dashscope"
-        model: "deepseek-plus"
-        api-key: ""
+        model: "qwen-plus"
+        api-key: "sk-1234"
         base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: ""
+        executor: "dashScopeLLMExecutor"
         desc: "通义千问"
 
       - platform: "dashscope"
-        model: "deepseek-max"
-        api-key: ""
-        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: ""
+        model: "qwen-max"
+        api-key: "sk-1234"
+        base-url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+        executor: "dashScopeLLMExecutor"
         desc: "通义千问"
 
-      - platform: "deepseek"
-        model: "deepseek-max"
-        api-key: ""
-        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: ""
-        desc: "通义千问"
 
     image:
       - platform: "dashscope"
@@ -41,18 +34,4 @@ aix:
         api-key: ""
         base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
         executor: ""
-        desc: "通义千问"
-
-      - platform: "dashscope"
-        model: "deepseek-max"
-        api-key: ""
-        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: ""
-        desc: "通义千问"
-
-      - platform: "deepseek"
-        model: "deepseek-max"
-        api-key: ""
-        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: ""
-        desc: "通义千问"
+        desc: "deepseek"

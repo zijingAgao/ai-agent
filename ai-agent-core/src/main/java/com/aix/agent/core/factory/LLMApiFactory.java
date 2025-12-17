@@ -37,7 +37,7 @@ public class LLMApiFactory implements ApplicationContextAware {
      * @param request 执行入参
      * @return
      */
-    public LLMResponse execute(LLMRequest request) {
+    public static LLMResponse execute(LLMRequest request) {
         LLMProperties properties = LLMAutoConfiguration.getLLMProperties(request.getModelType(), request.getPlatform(), request.getModel());
         String executor = properties.getExecutor();
 
@@ -46,6 +46,6 @@ public class LLMApiFactory implements ApplicationContextAware {
             throw new LLMException(LLMErrorCode.LLM_EXECUTOR_NOT_EXIST);
         }
 
-        return llmExecutor.execute(request,properties);
+        return llmExecutor.execute(request, properties);
     }
 }

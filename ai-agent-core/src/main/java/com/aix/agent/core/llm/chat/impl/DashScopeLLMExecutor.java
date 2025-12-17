@@ -6,6 +6,14 @@ import com.aix.agent.core.factory.LLMResponse;
 import com.aix.agent.core.llm.chat.LLMChatExecutor;
 import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
+import com.alibaba.cloud.ai.dashscope.common.DashScopeApiConstants;
+import com.alibaba.fastjson2.JSONObject;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.model.tool.ToolCallingManager;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,15 +27,29 @@ public class DashScopeLLMExecutor implements LLMChatExecutor {
 
     @Override
     public LLMResponse execute(LLMRequest req, LLMProperties properties) {
-        String model = req.getModel();
-        // 获取执行模型
-//        ChatModel chatModel = LLMApiFactory.getChatModel(model);
-//        // 提示词
-//        Prompt prompt = Prompt.builder().messages().build();
-//        // 结果
-//        ChatResponse chatResponse = chatModel.call(prompt);
-//
-//
+        // todo： DashScopeChatOptions 参数 ,不要给 baseUrl
+        DashScopeApi dashScopeApi = DashScopeApi.builder()
+                .apiKey(properties.getApiKey())
+                .build();
+
+        DashScopeChatModel chatModel = DashScopeChatModel.builder()
+                .dashScopeApi(dashScopeApi)
+//                .toolCallingManager()
+                .defaultOptions(DashScopeChatOptions.builder()
+                        .model(req.getModel())
+                        .temperature(0.4)
+                        .maxToken(200)
+                        .build())
+                .build();
+
+        // 提示词
+        Prompt prompt = Prompt.builder().messages(
+                SystemMessage.builder().text("You are a helpful assistant.").build(),
+                UserMessage.builder().text("请告诉我中国有多少个名族").build()
+        ).build();
+
+        ChatResponse chatResponse = chatModel.call(prompt);
+
 //        LLMResponse llmResponse = new LLMResponse();
 //
 //        llmResponse.setContent(chatResponse.getResult().getOutput().getText());
@@ -35,11 +57,7 @@ public class DashScopeLLMExecutor implements LLMChatExecutor {
 //        llmResponse.setCalledToolCalls();
 //        llmResponse.setCalledToolResponses();
 
-        DashScopeApi dashScopeApi = DashScopeApi.builder()
-                .apiKey(properties.getApiKey())
-                .build();
-
-        DashScopeChatModel chatModel = DashScopeChatModel.builder().dashScopeApi(dashScopeApi).build();
+        System.out.println(JSONObject.toJSONString(chatResponse));
 
 
         return null;
