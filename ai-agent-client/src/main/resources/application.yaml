@@ -11,7 +11,48 @@ spring:
         # 关闭自动装配 ChatClient 默认只会装配一个
         enabled: false
 
-    qwen:
-      api-key: ""
-      endpoint: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-      model: "qwen-plus"
+aix:
+  llm:
+    chat:
+      - platform: "dashscope"
+        model: "deepseek-plus"
+        api-key: ""
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        executor: ""
+        desc: "通义千问"
+
+      - platform: "dashscope"
+        model: "deepseek-max"
+        api-key: ""
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        executor: ""
+        desc: "通义千问"
+
+      - platform: "deepseek"
+        model: "deepseek-max"
+        api-key: ""
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        executor: ""
+        desc: "通义千问"
+
+    image:
+      - platform: "dashscope"
+        model: "deepseek-plus"
+        api-key: ""
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        executor: ""
+        desc: "通义千问"
+
+      - platform: "dashscope"
+        model: "deepseek-max"
+        api-key: ""
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        executor: ""
+        desc: "通义千问"
+
+      - platform: "deepseek"
+        model: "deepseek-max"
+        api-key: ""
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        executor: ""
+        desc: "通义千问"

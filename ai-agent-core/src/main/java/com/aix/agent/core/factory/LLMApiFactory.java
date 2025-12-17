@@ -1,22 +1,17 @@
 package com.aix.agent.core.factory;
 
+import com.aix.agent.core.config.LLMAutoConfiguration;
+import com.aix.agent.core.config.LLMProperties;
+import com.aix.agent.core.dto.LLMRequest;
+import com.aix.agent.core.dto.LLMResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.beans.factory.config.SingletonBeanRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,11 +31,9 @@ public class LLMApiFactory implements ApplicationContextAware {
     }
 
 
-    public static ChatModel getChatModel(String modelName) {
-        return CHAT_MODEL_MAP.get(modelName);
-    }
+    public LLMResponse ask(LLMRequest request){
+        LLMProperties properties = LLMAutoConfiguration.getLLMProperties(request.getModelType(), request.getPlatform(), request.getModel());
 
-    public static Map<String, ChatModel> getChatModelMap() {
-        return CHAT_MODEL_MAP;
+        return null;
     }
 }

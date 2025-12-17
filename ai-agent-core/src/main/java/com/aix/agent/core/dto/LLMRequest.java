@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class LLMRequest {
-
+    private String platform;
     private String model;
+    private String modelType;
 }
