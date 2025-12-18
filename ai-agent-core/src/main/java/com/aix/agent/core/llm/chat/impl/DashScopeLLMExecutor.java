@@ -7,13 +7,13 @@ import com.aix.agent.core.llm.chat.LLMChatExecutor;
 import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
-import com.alibaba.cloud.ai.dashscope.common.DashScopeApiConstants;
+import com.alibaba.cloud.ai.graph.agent.ReactAgent;
+import com.alibaba.cloud.ai.graph.checkpoint.savers.MemorySaver;
 import com.alibaba.fastjson2.JSONObject;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.model.tool.ToolCallingManager;
 import org.springframework.stereotype.Component;
 
 /**
@@ -49,6 +49,16 @@ public class DashScopeLLMExecutor implements LLMChatExecutor {
         ).build();
 
         ChatResponse chatResponse = chatModel.call(prompt);
+
+        ReactAgent reactAgent = ReactAgent.builder()
+                .name("reactAgent")
+                .model(chatModel)
+                .tools()
+                .outputType(String.class)
+                .saver(new MemorySaver())
+                .build();
+
+//        reactAgent.call("请告诉我中国有多少个名族");
 
 //        LLMResponse llmResponse = new LLMResponse();
 //
