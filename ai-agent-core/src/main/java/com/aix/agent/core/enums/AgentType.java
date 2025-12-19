@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum LLMType {
+public enum AgentType {
 
     CHAT("chat"),
     IMAGE("image"),

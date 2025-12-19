@@ -1,20 +1,21 @@
-package com.aix.agent.core.llm.chat.impl;
+package com.aix.agent.core.reactagent.chat.impl;
 
 import com.aix.agent.core.config.LLMProperties;
-import com.aix.agent.core.factory.LLMRequest;
-import com.aix.agent.core.factory.LLMResponse;
-import com.aix.agent.core.llm.chat.LLMChatExecutor;
+import com.aix.agent.core.enums.AgentPlatform;
+import com.aix.agent.core.factory.AgentRequest;
+import com.aix.agent.core.factory.AgentResponse;
+import com.aix.agent.core.reactagent.chat.AgentChatExecutor;
 import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import com.alibaba.cloud.ai.graph.agent.ReactAgent;
 import com.alibaba.cloud.ai.graph.checkpoint.savers.MemorySaver;
 import com.alibaba.fastjson2.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.stereotype.Component;
 
 /**
  * 通义模型Api
@@ -22,12 +23,23 @@ import org.springframework.stereotype.Component;
  * @Author Agao
  * @Date 2025/12/16 20:49
  */
-@Component("dashScopeLLMExecutor")
-public class DashScopeLLMExecutor implements LLMChatExecutor {
+@Slf4j
+public class DashScopeAgentChatExecutor implements AgentChatExecutor {
 
     @Override
-    public LLMResponse execute(LLMRequest req, LLMProperties properties) {
-        // todo： DashScopeChatOptions 参数 ,不要给 baseUrl
+    public String agentName() {
+        return "dash-scope-chat-agent";
+    }
+    /**
+     * 模型提供者 id
+     */
+    @Override
+    public String getProviderId() {
+        return AgentPlatform.DASH_SCOPE.getPlatform() + "-" + this.getAgentType();
+    }
+
+    @Override
+    public AgentResponse execute(AgentRequest req, LLMProperties properties) {
         DashScopeApi dashScopeApi = DashScopeApi.builder()
                 .apiKey(properties.getApiKey())
                 .build();
@@ -53,12 +65,14 @@ public class DashScopeLLMExecutor implements LLMChatExecutor {
         ReactAgent reactAgent = ReactAgent.builder()
                 .name("reactAgent")
                 .model(chatModel)
-                .tools()
+                .tools().hooks()
                 .outputType(String.class)
                 .saver(new MemorySaver())
                 .build();
 
-//        reactAgent.call("请告诉我中国有多少个名族");
+//        AssistantMessage called = reactAgent.call("请告诉我中国有多少个名族");
+//        ReactAgent reactAgent1 = new ReactAgent();
+
 
 //        LLMResponse llmResponse = new LLMResponse();
 //
@@ -72,5 +86,6 @@ public class DashScopeLLMExecutor implements LLMChatExecutor {
 
         return null;
     }
+
 
 }

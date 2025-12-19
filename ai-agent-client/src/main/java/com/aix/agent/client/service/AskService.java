@@ -1,8 +1,8 @@
 package com.aix.agent.client.service;
 
-import com.aix.agent.core.factory.LLMApiFactory;
-import com.aix.agent.core.factory.LLMRequest;
-import com.aix.agent.core.factory.LLMResponse;
+import com.aix.agent.core.factory.AgentFactory;
+import com.aix.agent.core.factory.AgentChatRequest;
+import com.aix.agent.core.factory.AgentResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ public class AskService {
 
     public String ask(String question) {
 
-        LLMRequest llmRequest = new LLMRequest();
-        llmRequest.setPlatform("dashscope");
-        llmRequest.setModel("qwen-plus");
-        llmRequest.setModelType("chat");
-        llmRequest.setContent(question);
+        AgentChatRequest agentChatRequest = new AgentChatRequest();
+        agentChatRequest.setPlatform("dashscope");
+        agentChatRequest.setModel("qwen-plus");
+        agentChatRequest.setModelType("chat");
+        agentChatRequest.setContent(question);
 
-        LLMResponse response = LLMApiFactory.execute(llmRequest);
+        AgentResponse response = AgentFactory.execute(agentChatRequest);
         return "hello world";
     }
 

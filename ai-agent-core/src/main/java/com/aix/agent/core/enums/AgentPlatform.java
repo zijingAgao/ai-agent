@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum LLMPlatform {
+public enum AgentPlatform {
     OPENAI("openai"),
     DASH_SCOPE("dashscope"),
     DEEP_SEEK("deepseek"),

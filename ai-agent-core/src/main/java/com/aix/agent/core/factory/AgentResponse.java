@@ -11,11 +11,11 @@ import java.util.List;
  * @Date 2025/12/16 20:43
  */
 @Data
-public class LLMResponse {
+public class AgentResponse {
     /**
      * 思考过程
      */
-    private String thinkContent;
+    private String reasoningContent;
 
     /**
      * 输出内容

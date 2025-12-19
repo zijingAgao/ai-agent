@@ -25,10 +25,6 @@ public class LLMProperties {
      */
     private String platform;
     /**
-     * 执行器bean
-     */
-    private String executor;
-    /**
      * 描述
      */
     private String desc;

@@ -9,9 +9,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum LLMErrorCode implements IErrorCode {
 
-    SYSTEM_ERROR("L0001", "LLM系统异常"),
-    LLM_NOT_EXIST("L0002", "LLM模型不存在"),
-    LLM_EXECUTOR_NOT_EXIST("L0003", "LLM模型执行器不存在"),
+    SYSTEM_ERROR("L0001", "LLM 系统异常"),
+    LLM_NOT_EXIST("L0002", "LLM 模型不存在"),
+    LLM_EXECUTOR_NOT_EXIST("L0003", "Agent 不存在"),
     ;
 
 

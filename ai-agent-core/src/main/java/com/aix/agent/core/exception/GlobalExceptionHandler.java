@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
         return XR.error(e.getCode(), e.getMsg());
     }
 
-    @ExceptionHandler(value = LLMException.class)
-    public XR<?> handleLLMException(LLMException e) {
+    @ExceptionHandler(value = AgentException.class)
+    public XR<?> handleLLMException(AgentException e) {
         return XR.error(e.getCode(), e.getMsg());
     }
 }

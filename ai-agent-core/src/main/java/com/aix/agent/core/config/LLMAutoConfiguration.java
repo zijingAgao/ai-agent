@@ -1,8 +1,8 @@
 package com.aix.agent.core.config;
 
-import com.aix.agent.core.enums.LLMType;
+import com.aix.agent.core.enums.AgentType;
 import com.aix.agent.core.errorcode.LLMErrorCode;
-import com.aix.agent.core.exception.LLMException;
+import com.aix.agent.core.exception.AgentException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author Agao
@@ -46,7 +45,7 @@ public class LLMAutoConfiguration implements ApplicationRunner {
         String modelKey = buildModelKey(modelType, platform, model);
         LLMProperties llmProperties = LLM_MODEL_MAP.get(modelKey);
         if (llmProperties == null) {
-            throw new LLMException(LLMErrorCode.LLM_NOT_EXIST);
+            throw new AgentException(LLMErrorCode.LLM_NOT_EXIST);
         }
 
         return llmProperties;
@@ -56,7 +55,7 @@ public class LLMAutoConfiguration implements ApplicationRunner {
         return LLM_MODEL_MAP;
     }
 
-    private void joinLLMModelMap(LLMType llmType, List<LLMProperties> LLMPropertiesList) {
+    private void joinLLMModelMap(AgentType agentType, List<LLMProperties> LLMPropertiesList) {
         if (CollectionUtils.isEmpty(LLMPropertiesList)) {
             return;
         }
@@ -65,7 +64,7 @@ public class LLMAutoConfiguration implements ApplicationRunner {
             String platform = llmProperties.getPlatform();
             String model = llmProperties.getModel();
 
-            String key = buildModelKey(llmType.getType(), platform, model);
+            String key = buildModelKey(agentType.getType(), platform, model);
             LLM_MODEL_MAP.put(key, llmProperties);
         }
 
@@ -85,7 +84,7 @@ public class LLMAutoConfiguration implements ApplicationRunner {
         List<LLMProperties> chatLLMList = llmModelProperties.getChat();
         List<LLMProperties> imageLLMList = llmModelProperties.getImage();
 
-        joinLLMModelMap(LLMType.CHAT, chatLLMList);
-        joinLLMModelMap(LLMType.IMAGE, imageLLMList);
+        joinLLMModelMap(AgentType.CHAT, chatLLMList);
+        joinLLMModelMap(AgentType.IMAGE, imageLLMList);
     }
 }

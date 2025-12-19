@@ -8,17 +8,17 @@ import com.aix.agent.core.errorcode.IErrorCode;
  * @author Agao
  * @date 2025/12/10 14:26
  */
-public class LLMException extends AbstractException {
+public class AgentException extends AbstractException {
 
-    public LLMException(IErrorCode iErrorCode) {
+    public AgentException(IErrorCode iErrorCode) {
         this(null, iErrorCode);
     }
 
-    public LLMException(String message, IErrorCode iErrorCode) {
+    public AgentException(String message, IErrorCode iErrorCode) {
         this(message, null, iErrorCode);
     }
 
-    public LLMException(String message, Throwable cause, IErrorCode iErrorCode) {
+    public AgentException(String message, Throwable cause, IErrorCode iErrorCode) {
         super(message, cause, iErrorCode);
     }
 }
