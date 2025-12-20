@@ -2,6 +2,9 @@ package com.aix.agent.core.factory;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.ai.chat.messages.UserMessage;
+
+import java.util.List;
 
 /**
  * @Author Agao
@@ -10,5 +13,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AgentChatRequest extends AgentRequest {
-    private String content;
+    /**
+     * 用户级别的提示词
+     */
+    private UserMessage userMessage;
+    /**
+     * 定义输出格式
+     */
+    private Class<?> outputType;
+    /**
+     * 定义输出格式
+     */
+    private String outputSchema;
 }

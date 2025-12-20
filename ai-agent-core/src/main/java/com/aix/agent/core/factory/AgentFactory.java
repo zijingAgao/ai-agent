@@ -2,7 +2,7 @@ package com.aix.agent.core.factory;
 
 import com.aix.agent.core.config.LLMAutoConfiguration;
 import com.aix.agent.core.config.LLMProperties;
-import com.aix.agent.core.errorcode.LLMErrorCode;
+import com.aix.agent.core.errorcode.AgentErrorCode;
 import com.aix.agent.core.exception.AgentException;
 import com.aix.agent.core.reactagent.AgentExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class AgentFactory implements ApplicationContextAware {
         String providerId = buildProviderId(request.getPlatform(), request.getModelType());
         AgentExecutor agentExecutor = AGENT_EXECUTOR_MAP.get(providerId);
         if (agentExecutor == null) {
-            throw new AgentException(LLMErrorCode.LLM_EXECUTOR_NOT_EXIST);
+            throw new AgentException(AgentErrorCode.LLM_EXECUTOR_NOT_EXIST);
         }
         LLMProperties properties = LLMAutoConfiguration.getLLMProperties(request.getModelType(), request.getPlatform(), request.getModel());
 

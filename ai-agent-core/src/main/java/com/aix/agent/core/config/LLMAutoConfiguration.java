@@ -1,7 +1,7 @@
 package com.aix.agent.core.config;
 
 import com.aix.agent.core.enums.AgentType;
-import com.aix.agent.core.errorcode.LLMErrorCode;
+import com.aix.agent.core.errorcode.AgentErrorCode;
 import com.aix.agent.core.exception.AgentException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,6 @@ public class LLMAutoConfiguration implements ApplicationRunner {
      * LLM模型配置
      * <chat-dashscope-model, LLMProperties>
      */
-//    private static final Map<String, Map<String, Map<String, LLMProperties>>> LLM_MODEL_MAP = new HashMap<>();
     private static final Map<String, LLMProperties> LLM_MODEL_MAP = new HashMap<>();
 
     /**
@@ -45,7 +44,7 @@ public class LLMAutoConfiguration implements ApplicationRunner {
         String modelKey = buildModelKey(modelType, platform, model);
         LLMProperties llmProperties = LLM_MODEL_MAP.get(modelKey);
         if (llmProperties == null) {
-            throw new AgentException(LLMErrorCode.LLM_NOT_EXIST);
+            throw new AgentException(AgentErrorCode.LLM_NOT_EXIST);
         }
 
         return llmProperties;

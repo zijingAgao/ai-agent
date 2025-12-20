@@ -17,14 +17,12 @@ aix:
         model: "qwen-plus"
         api-key: "sk-1234"
         base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: "dashScopeLLMExecutor"
         desc: "通义千问"
 
       - platform: "dashscope"
         model: "qwen-max"
         api-key: "sk-1234"
         base-url: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
-        executor: "dashScopeLLMExecutor"
         desc: "通义千问"
 
 
@@ -33,5 +31,4 @@ aix:
         model: "deepseek-plus"
         api-key: ""
         base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-        executor: ""
         desc: "deepseek"

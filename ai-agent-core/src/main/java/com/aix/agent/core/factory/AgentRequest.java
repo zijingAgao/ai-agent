@@ -1,6 +1,9 @@
 package com.aix.agent.core.factory;
 
 import lombok.Data;
+import org.springframework.ai.tool.ToolCallback;
+
+import java.util.List;
 
 /**
  * @author Agao
@@ -20,4 +23,12 @@ public class AgentRequest {
      * 模型类型 @see com.aix.agent.core.enums.ModelType
      */
     private String modelType;
+    /**
+     * 线程id 记录对话的上下文
+     */
+    private String threadId;
+    /**
+     * 所需工具调用
+     */
+    private List<ToolCallback> toolCallbacks;
 }
